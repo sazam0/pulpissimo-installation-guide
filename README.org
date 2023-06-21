@@ -20,6 +20,7 @@ Note: the following instructions are adapted from this [[https://singularitykche
   - [[#error-1-issue-275][error 1: issue 275]]
   - [[#error-2-issue-340][error 2: issue 340]]
   - [[#error-3-issue-385][error 3: issue 385]]
+- [[#settings-to-use-after-installation][settings to use after installation]]
 
 * system status
 os: Ubuntu 20.04.6 LTS
@@ -204,7 +205,7 @@ git clone https://github.com/pulp-platform/pulp-rt-examples.git
 /do not why load both ~pulp-runtime~ and ~pulp-sdk~/
 #+begin_src sh
 # at the root directory of Pulpissimo
-cd <pulpissimo root dir>
+cd $HOME/pulpissimo
 
 source ./pulp-runtime/configs/pulpissimo.sh
 source ./env/pulpissimo.sh
@@ -268,7 +269,7 @@ replace: ~vopt +acc=mnpr~ to ~vopt +acc~ in *line 28 and 30*
 ** error 2: issue [[https://github.com/pulp-platform/pulpissimo/issues/340#issuecomment-1125981693][340]]
 the ~floatparams~ flag is set on *line: 28* of ~pulpissimo/sim/tcl_files/rtl_vopt.tcl~
 
-the answer mentions that removing may cause =crush= the simulators and also break some testbench stuff, so be aware of that.
+the answer mentions that removing the option may cause =crushing= the simulators and also break some testbench stuff, *so be aware of that*.
 
 after fixing error 1 and 2, line: 28 will be:
 
@@ -281,7 +282,38 @@ eval exec >@stdout vopt +acc -o vopt_tb tb_pulp  $VSIM_IP_LIBS $VSIM_RTL_LIBS -w
 
 the error report may not match, I do not have the screenshot at the moment
 
-*solution*:[[https://askubuntu.com/questions/1418016/glibcxx-3-4-30-not-found-in-conda-environment][follow the link]]
+*solution*:[[https://askubuntu.com/questions/1418016/glibcxx-3-4-30-not-found-in-conda-environment][followed from the link]]
 - check if the required version is already in your system, (in my case it was)
 - after that execute in the terminal:
   ~ln -sf /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /home/<usrname>/anaconda3/lib/libstdc++.so.6~
+* settings to use after installation
+*export the following paths* or put it in ~.bashrc~ file
+#+begin_src sh
+export RISCV=/opt/riscv
+export PULP_RISCV_GCC_TOOLCHAIN=$RISCV
+export PATH=$PATH:$RISCV/bin
+export VSIM_PATH=$HOME/pulpissimo/sim
+#+end_src
+
+*source the target for simulation*
+
+#+begin_src sh
+cd $HOME/pulpissimo/pulp-sdk
+# Target select
+source configs/pulpissimo.sh
+
+# Platform select: env/pulpissimo loads it
+# source configs/platform-rtl.sh
+
+# SDK setup
+source pkg/sdk/dev/sourceme.sh
+
+# RTL setup
+cd $HOME/pulpissimo
+# source setup/vsim.sh
+# better load more things
+source env/pulpissimo.sh
+
+# in case required
+source ./pulp-runtime/configs/pulpissimo.sh
+#+end_src
