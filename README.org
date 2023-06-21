@@ -3,6 +3,15 @@
 
 Note: the following instructions are adapted from this [[https://singularitykchen.github.io/blog/2020/12/20/Tutorial-Configure-and-Run-Pulpissimo/][blog]] and my experience with the installation
 
+* table of contents :toc:
+- [[#system-status][system status]]
+- [[#pulp-riscv-toolchain][pulp-riscv-toolchain]]
+- [[#pulpissimo][pulpissimo]]
+- [[#pulp-runtime][pulp-runtime]]
+- [[#pulp-runtime-from-pulpissimo][pulp-runtime from pulpissimo]]
+- [[#pulp-sdk][pulp-sdk]]
+- [[#pulp-sdk-from-pulpissimo][pulp-sdk from pulpissimo]]
+
 * system status
 os: Ubuntu 20.04.6 LTS
 
