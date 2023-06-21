@@ -10,7 +10,7 @@ gcc: 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.1)
 
 questa sim: Questa Intel starter FPGA Edition-64 2021.2
 
-* pulp risc-v toolchain
+* pulp-riscv-toolchain
 #+url: https://github.com/pulp-platform/pulp-riscv-gnu-toolchain/
 
 #+begin_src sh
@@ -19,7 +19,7 @@ git clone --recursive https://github.com/pulp-platform/pulp-riscv-gnu-toolchain
 
 or, download latest releases from: https://github.com/pulp-platform/pulp-riscv-gnu-toolchain/releases/
 
-*requirements*:
+*requirements*
 #+begin_src sh
 sudo apt-get install autoconf automake autotools-dev curl libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev
 
@@ -70,5 +70,44 @@ export VSIM_PATH=$HOME/pulpissimo/sim
 *requirements*
 #+begin_src sh
 pip3 install --user artifactory twisted prettytable sqlalchemy pyelftools 'openpyxl==2.6.4' xlsxwriter pyyaml numpy configparser pyvcd sphinx
+#+end_src
+
+* pulp-runtime
+#+url: https://github.com/pulp-platform/pulp-runtime/tree/master
+
+*requirements*
+#+begin_src sh
+sudo apt install python3-pip gawk texinfo libgmp-dev libmpfr-dev libmpc-dev
+sudo pip3 install pyelftools
+#+end_src
+
+*following not recommended, build from /pulpissimo/ makefile*:[[#21Jun2023-191547382__pulp-runtime-from-pulpissimo][pulp-runtime from pulpissimo]]
+
+#+begin_src sh
+git clone https://github.com/pulp-platform/pulp-runtime.git
+#+end_src
+
+or download from latest release: https://github.com/pulp-platform/pulp-runtime/releases
+
+*build*
+Choose the configuration for which you want to compile the runtime, for example:
+
+#+begin_src sh
+source configs/pulp.sh
+#+end_src
+
+* pulp-runtime from pulpissimo
+:PROPERTIES:
+:CUSTOM_ID: 21Jun2023-191547382__pulp-runtime-from-pulpissimo
+:END:
+
+from pulpissimo root directory
+
+#+begin_src sh
+cd $HOME/pulpissimo
+make pulp-runtime
+
+cd ./pulp-runtime
+source configs/pulpissimo.sh
 #+end_src
 
