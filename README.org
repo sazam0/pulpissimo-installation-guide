@@ -19,7 +19,7 @@ git clone --recursive https://github.com/pulp-platform/pulp-riscv-gnu-toolchain
 
 or, download latest releases from: https://github.com/pulp-platform/pulp-riscv-gnu-toolchain/releases/
 
-/install requirements/
+*requirements*:
 #+begin_src sh
 sudo apt-get install autoconf automake autotools-dev curl libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev
 
@@ -41,3 +41,34 @@ export RISCV=/opt/riscv
 export PULP_RISCV_GCC_TOOLCHAIN=$RISCV
 export PATH=$PATH:$RISCV/bin
 #+end_src
+
+* pulpissimo
+:PROPERTIES:
+:CUSTOM_ID: 21Jun2023-144552572__pulpissimo
+:END:
+#+url: https://github.com/pulp-platform/pulpissimo
+
+#+begin_src sh
+git clone https://github.com/pulp-platform/pulpissimo.git
+#+end_src
+
+or download from latest release: https://github.com/pulp-platform/pulpissimo/releases
+
+I have used the released version: v7.0.0
+#+begin_src sh
+wget https://github.com/pulp-platform/pulpissimo/archive/refs/tags/v7.0.0.tar.gz
+mkdir pulpissimo
+tar -xvzf v7.0.0.tar.gz -C pulpissimo --strip-components 1
+#+end_src
+
+
+#+begin_src sh
+# export VSIM_PATH=<pulpissimo root folder>/sim
+export VSIM_PATH=$HOME/pulpissimo/sim
+#+end_src
+
+*requirements*
+#+begin_src sh
+pip3 install --user artifactory twisted prettytable sqlalchemy pyelftools 'openpyxl==2.6.4' xlsxwriter pyyaml numpy configparser pyvcd sphinx
+#+end_src
+
