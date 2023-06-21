@@ -100,7 +100,7 @@ sudo apt install python3-pip gawk texinfo libgmp-dev libmpfr-dev libmpc-dev
 sudo pip3 install pyelftools
 #+end_src
 
-*following not recommended, build from pulpissimo makefile*:[[#21Jun2023-191547382__pulp-runtime-from-pulpissimo][pulp-runtime from pulpissimo]]
+*following not recommended, build from pulpissimo makefile*: [[#pulp-runtime-from-pulpissimo][pulp-runtime from pulpissimo]]
 
 #+begin_src sh
 git clone https://github.com/pulp-platform/pulp-runtime.git
@@ -133,7 +133,7 @@ source configs/pulpissimo.sh
 
 * pulp-sdk
 #+url: https://github.com/pulp-platform/pulp-sdk
-*new pulp-sdk do not support pulpissimo, better to clone/build from pulpissimo repository* commands, jump to [[#21Jun2023-210945860__pulp-sdk-from-pulpissimo][pulp-sdk from pulpissimo]]
+*new pulp-sdk do not support pulpissimo, better to clone/build from pulpissimo repository* commands, jump to [[#pulp-sdk-from-pulpissimo][pulp-sdk from pulpissimo]]
 
 *requirements*
 
@@ -212,7 +212,7 @@ source ./env/pulpissimo.sh
 source ./pulp-sdk/configs/pulpissimo.sh
 #+end_src
 
-if you get the following line then [[#21Jun2023-213048519__rebuild-sdk][rebuild sdk]]
+if you get the following line then [[#rebuild-sdk][rebuild sdk]]
 
 #+begin_example
 bash: /pulpissimo/pulp-sdk/sourceme.sh: No such file or directory
