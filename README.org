@@ -8,3 +8,35 @@ os: Ubuntu 20.04.6 LTS
 gcc: 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.1)
 
 questa sim: Questa Intel starter FPGA Edition-64 2021.2
+
+* pulp risc-v toolchain
+#+url: https://github.com/pulp-platform/pulp-riscv-gnu-toolchain/
+
+#+begin_src sh
+git clone --recursive https://github.com/pulp-platform/pulp-riscv-gnu-toolchain
+#+end_src
+
+or, download latest releases from: https://github.com/pulp-platform/pulp-riscv-gnu-toolchain/releases/
+
+=requirements=
+#+begin_src sh
+sudo apt-get install autoconf automake autotools-dev curl libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev
+
+# change owner of /opt/riscv to avoid further complications
+sudo mkdir /opt/riscv
+sudo chown -R $USER:$USER /opt/riscv
+#+end_src
+
+install _newlib cross-compiler for all pulp variants_
+#+begin_src sh
+cd pulp-riscv-gnu-toolchain
+# config
+./configure --prefix=/opt/riscv --with-arch=rv32imc --with-cmodel=medlow --enable-multilib
+# make
+make
+
+# add path
+export PATH=/opt/riscv:$PATH
+export PULP_RISCV_GCC_TOOLCHAIN=/opt/riscv
+#+end_src
+
