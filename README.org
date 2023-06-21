@@ -1,3 +1,4 @@
+# -*- org-export-babel-evaluate: nil -*-
 #+title: pulpissimo installation guide
 
 Note: the following instructions are adapted from this [[https://singularitykchen.github.io/blog/2020/12/20/Tutorial-Configure-and-Run-Pulpissimo/][blog]] and my experience with the installation
