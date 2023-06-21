@@ -19,11 +19,11 @@ git clone --recursive https://github.com/pulp-platform/pulp-riscv-gnu-toolchain
 
 or, download latest releases from: https://github.com/pulp-platform/pulp-riscv-gnu-toolchain/releases/
 
-=requirements=
+/install requirements/
 #+begin_src sh
 sudo apt-get install autoconf automake autotools-dev curl libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev
 
-# change owner of /opt/riscv to avoid further complications
+# change owner of /opt/riscv to from root to user to avoid further complications
 sudo mkdir /opt/riscv
 sudo chown -R $USER:$USER /opt/riscv
 #+end_src
