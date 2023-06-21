@@ -11,6 +11,9 @@ Note: the following instructions are adapted from this [[https://singularitykche
 - [[#pulp-runtime-from-pulpissimo][pulp-runtime from pulpissimo]]
 - [[#pulp-sdk][pulp-sdk]]
 - [[#pulp-sdk-from-pulpissimo][pulp-sdk from pulpissimo]]
+- [[#rebuild-sdk][rebuild sdk]]
+- [[#build-rtl-platform][build RTL platform]]
+- [[#run-example][run example]]
 
 * system status
 os: Ubuntu 20.04.6 LTS
@@ -159,4 +162,74 @@ cd $HOME/pulpissimo
 make build-pulp-sdk
 
 source ./env/pulpissimo.sh
+#+end_src
+
+* rebuild sdk
+:PROPERTIES:
+:CUSTOM_ID: 21Jun2023-213048519__rebuild-sdk
+:END:
+only when required, not required for the installation
+
+#+begin_src sh
+cd $HOME/pulpissimo/pulp-sdk
+make all
+#+end_src
+
+* build RTL platform
+#+begin_src sh
+cd $HOME/pulpissimo
+# build rtl simulation
+make checkout
+
+# questasim/modelsim should be installed with 'vlib' command available
+source setup/vsim.sh
+make build
+#+end_src
+
+* run example
+clone outside of 'pulpissimo' directory
+
+*for the sdk*:
+#+begin_src sh
+git clone https://github.com/pulp-platform/pulp-rt-examples.git
+#+end_src
+
+=prepare the enviroment= in the *pulpissimo* root directory:
+/do not why load both ~pulp-runtime~ and ~pulp-sdk~/
+#+begin_src sh
+# at the root directory of Pulpissimo
+cd <pulpissimo root dir>
+
+source ./pulp-runtime/configs/pulpissimo.sh
+source ./env/pulpissimo.sh
+source ./pulp-sdk/configs/pulpissimo.sh
+#+end_src
+
+if: _bash: /pulpissimo/pulp-sdk/sourceme.sh_: *No such file or directory*
+
+then [[#21Jun2023-213048519__rebuild-sdk][rebuild sdk]]
+
+#+begin_src sh
+cd pulp-rt-examples/hello
+
+# terminal output
+make clean all run
+
+# following commands not tested yet
+# see waveform
+make clean all
+make run vsim/script=export_run.tcl
+
+# for gui
+make run gui=1
+# save vcd file
+make run vsim/script=export_run.tcl
+#+end_src
+
+*for the simple runtime*:
+#+begin_src sh
+git clone https://github.com/pulp-platform/pulp-runtime-examples.git
+
+cd pulp-runtime-examples/hello
+make clean all run
 #+end_src
