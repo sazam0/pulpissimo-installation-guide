@@ -37,7 +37,7 @@ cd pulp-riscv-gnu-toolchain
 make
 
 # add path
-export PATH=/opt/riscv:$PATH
-export PULP_RISCV_GCC_TOOLCHAIN=/opt/riscv
+export RISCV=/opt/riscv
+export PULP_RISCV_GCC_TOOLCHAIN=$RISCV
+export PATH=$PATH:$RISCV/bin
 #+end_src
-
