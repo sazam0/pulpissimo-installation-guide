@@ -14,6 +14,12 @@ Note: the following instructions are adapted from this [[https://singularitykche
 - [[#rebuild-sdk][rebuild sdk]]
 - [[#build-rtl-platform][build RTL platform]]
 - [[#run-example][run example]]
+- [[#waiting-rtl-development][WAITING rtl development]]
+- [[#waiting-virtual-platform][WAITING virtual platform]]
+- [[#errors-during-installation][errors during installation]]
+  - [[#error-1-issue-275][error 1: issue 275]]
+  - [[#error-2-issue-340][error 2: issue 340]]
+  - [[#error-3-issue-385][error 3: issue 385]]
 
 * system status
 os: Ubuntu 20.04.6 LTS
@@ -205,9 +211,11 @@ source ./env/pulpissimo.sh
 source ./pulp-sdk/configs/pulpissimo.sh
 #+end_src
 
-if: _bash: /pulpissimo/pulp-sdk/sourceme.sh_: *No such file or directory*
+if you get the following line then [[#21Jun2023-213048519__rebuild-sdk][rebuild sdk]]
 
-then [[#21Jun2023-213048519__rebuild-sdk][rebuild sdk]]
+#+begin_example
+bash: /pulpissimo/pulp-sdk/sourceme.sh: No such file or directory
+#+end_example
 
 #+begin_src sh
 cd pulp-rt-examples/hello
@@ -233,3 +241,47 @@ git clone https://github.com/pulp-platform/pulp-runtime-examples.git
 cd pulp-runtime-examples/hello
 make clean all run
 #+end_src
+
+* WAITING rtl development
+if rtl changed, rebuild again, after that execute the example to test
+#+begin_src sh
+cd pulpissimo
+./generate-scripts
+make clean build
+#+end_src
+
+* WAITING virtual platform
+/not yet tested/
+#+begin_src sh
+source sourceme.sh
+source configs/platform-gvsoc.sh
+#+end_src
+* errors during installation
+** error 1: issue [[https://github.com/pulp-platform/pulpissimo/issues/275#issuecomment-934397013][275]]
+=* Error (suppressible): (vopt-14401) Option specified: +acc=mnpr. Following acc options are now deprecated 'f' 'm' 'q' 't' 'x' 'y'.=
+
+*solution*:
+
+edit file: ~pulpissimo/sim/tcl_files/rtl_vopt.tcl~
+
+replace: ~vopt +acc=mnpr~ to ~vopt +acc~ in *line 28 and 30*
+** error 2: issue [[https://github.com/pulp-platform/pulpissimo/issues/340#issuecomment-1125981693][340]]
+the ~floatparams~ flag is set on *line: 28* of ~pulpissimo/sim/tcl_files/rtl_vopt.tcl~
+
+the answer mentions that removing may cause =crush= the simulators and also break some testbench stuff, so be aware of that.
+
+after fixing error 1 and 2, line: 28 will be:
+
+#+begin_src sh
+eval exec >@stdout vopt +acc -o vopt_tb tb_pulp  $VSIM_IP_LIBS $VSIM_RTL_LIBS -work work
+#+end_src
+
+** error 3: issue [[https://github.com/pulp-platform/pulpissimo/issues/385][385]]
+=GLIBCXX 3.4.XX not found in conda environment=
+
+the error report may not match, I do not have the screenshot at the moment
+
+*solution*:[[https://askubuntu.com/questions/1418016/glibcxx-3-4-30-not-found-in-conda-environment][follow the link]]
+- check if the required version is already in your system, (in my case it was)
+- after that execute in the terminal:
+  ~ln -sf /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /home/<usrname>/anaconda3/lib/libstdc++.so.6~
